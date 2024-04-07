@@ -20,7 +20,8 @@ const App = () => {
   return (
     <div className="app">
       <Search query={query} handleSearch={handleSearch} />
-      <Folder foldersData={filteredData} query={query} />
+      {filteredData.length &&
+        filteredData.map((f) => <Folder folderData={f} query={query} />)}
     </div>
   );
 };

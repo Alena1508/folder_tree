@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import File from "../file/File.tsx";
 
 export interface IFolderData {
   name: string;
@@ -7,41 +8,44 @@ export interface IFolderData {
 }
 
 export interface IFolder {
-  foldersData: IFolderData[];
-  query: string;
+  folderData: IFolderData;
+  query: any;
 }
 
-const Folder = ({ foldersData, query }: IFolder) => {
+const Folder = ({ folderData, query }: IFolder) => {
   const [expand, setExpand] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   if (query !== "" && Object.keys(foldersData).length !== 0) {
-  //     setExpand(true);
-  //   }
-  // }, [query, foldersData]);
+  useEffect(() => {
+    if (query !== "" && Object.keys(folderData).length !== 0) {
+      setExpand(true);
+    }
+  }, [query, folderData]);
 
-  const getIcon = (folder) => {
-    if (folder.isFolder) {
+  const getIcon = () => {
+    if (folderData.isFolder) {
       return expand ? "-" : "+";
     }
     return "";
   };
+
   return (
     <div>
-      {foldersData.map((folder) => (
+      {folderData.isFolder ? (
         <>
-          {getIcon(folder)}
-          <span onClick={() => setExpand(!expand)}>{folder.name}</span>
+          {getIcon()}
+          <span onClick={() => setExpand(!expand)}>{folderData.name}</span>
           <br />
-          {folder.items && folder.items.length > 0 && (
-            <div
-              style={{ display: expand ? "block" : "none", paddingLeft: 15 }}
-            >
-              <Folder foldersData={folder.items} query={query} />
-            </div>
-          )}
+          {expand
+            ? folderData.items.map((f) => (
+                <div style={{ paddingLeft: 15 }} key={f.name}>
+                  <Folder folderData={f} query={query} />
+                </div>
+              ))
+            : null}
         </>
-      ))}
+      ) : (
+        <File name={folderData.name} />
+      )}
     </div>
   );
 };
