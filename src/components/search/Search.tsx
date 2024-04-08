@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { TextField } from "@mui/material";
+import "./Search.scss";
 
 interface ISearch {
   query: string;
@@ -10,13 +10,13 @@ const Search = ({ query, handleSearch }: ISearch) => {
   const placeholderText = "Search...";
 
   return (
-    <div>
-      <TextField
+    <div className="search">
+      <input
+        className="search-field"
         type="search"
         value={query}
-        label={placeholderText}
+        placeholder={placeholderText}
         onChange={handleSearch}
-        color="primary"
       />
     </div>
   );

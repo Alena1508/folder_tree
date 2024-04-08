@@ -19,9 +19,15 @@ const App = () => {
 
   return (
     <div className="app">
+      <h2>Folder tree</h2>
       <Search query={query} handleSearch={handleSearch} />
-      {filteredData.length &&
-        filteredData.map((f) => <Folder folderData={f} query={query} />)}
+      {filteredData.length ? (
+        filteredData.map((f) => (
+          <Folder key={f.name} folderData={f} query={query} />
+        ))
+      ) : (
+        <p>No matches found</p>
+      )}
     </div>
   );
 };
