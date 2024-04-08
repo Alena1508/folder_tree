@@ -1,5 +1,7 @@
 # Getting Started with React Folder Tree App
 
+**Open [Demo](https://alena1508.github.io/folder_tree/) to view app in the browser**
+
 
 ## Available Scripts
 
